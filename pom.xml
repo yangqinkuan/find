@@ -14,6 +14,7 @@
         <module>find-registry</module>
         <module>find-web</module>
         <module>find-util</module>
+        <module>find-kafka</module>
     </modules>
 
     <parent>
@@ -48,6 +49,11 @@
             <dependency>
                 <groupId>com.ice</groupId>
                 <artifactId>find-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ice</groupId>
+                <artifactId>find-kafka</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

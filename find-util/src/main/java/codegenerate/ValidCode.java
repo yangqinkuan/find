@@ -11,10 +11,14 @@ import java.util.Random;
 
 public class ValidCode {
 
-    public String get6Code(){
+    public static String get6Code(){
         Random rand = new Random();
-        rand.nextInt(10);
-        return null;
+        StringBuilder sb = new StringBuilder();
+        for(int i=0;i<6;i++){
+            sb.append(rand.nextInt(10));
+        }
+
+        return sb.toString();
     }
 
     public static void main(String[] args) {

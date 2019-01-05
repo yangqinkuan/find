@@ -29,6 +29,11 @@
             <artifactId>find-registry</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.ice</groupId>
+            <artifactId>find-kafka</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
