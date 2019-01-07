@@ -5,9 +5,9 @@
  * Date:     2019/1/5 23:42
  * Description: kafkaDemo测试
  */
-package kafka;
+package kafkademo;
 
-import com.ice.find.SpringbootApplication;
+import com.ice.find.kafka.KafkaApp;
 import com.ice.find.kafka.kfksender.KafkaSenderImpl;
 import org.junit.After;
 import org.junit.Before;
@@ -18,7 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = SpringbootApplication.class)
+@SpringBootTest(classes = KafkaApp.class)
 public class KafkaDemoTest {
 
     @Autowired

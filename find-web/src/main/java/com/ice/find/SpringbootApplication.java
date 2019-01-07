@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 public class SpringbootApplication {
     public static void main(String[] args) {
-        Class<?>[] objects = new Class[10];
+        Class<?>[] objects = new Class[2];
         objects[0] = SpringbootApplication.class;
         objects[1] = KafkaApp.class;
         SpringApplication.run(objects,args);
