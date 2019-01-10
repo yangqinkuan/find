@@ -33,6 +33,7 @@ public class KafkaDemoTest {
 
     @Test
     public void testKafka() throws InterruptedException {
+
         for (int i=0;i<5;i++){
             kafkaSenderImpl.send();
             Thread.sleep(1000);
