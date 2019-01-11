@@ -7,9 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="find-kafka" />
         <module name="find-login" />
         <module name="find-mail" />
         <module name="find-registry" />
+        <module name="find-sql" />
+        <module name="find-util" />
         <module name="find-web" />
       </profile>
     </annotationProcessing>

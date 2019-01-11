@@ -15,6 +15,7 @@
         <module>find-web</module>
         <module>find-util</module>
         <module>find-kafka</module>
+        <module>find-sql</module>
     </modules>
 
     <parent>
@@ -28,6 +29,22 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
+
+    <dependencies>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.40</version>
+        </dependency>
+
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -54,6 +71,16 @@
             <dependency>
                 <groupId>com.ice</groupId>
                 <artifactId>find-kafka</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ice</groupId>
+                <artifactId>find-util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.ice</groupId>
+                <artifactId>find-sql</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
