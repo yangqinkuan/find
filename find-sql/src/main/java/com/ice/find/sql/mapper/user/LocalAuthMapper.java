@@ -11,7 +11,6 @@ import com.ice.find.sql.entity.user.LocalAuth;
 import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
-@MapperScan
 public interface LocalAuthMapper {
     /**
      * 插入一条本地验证记录

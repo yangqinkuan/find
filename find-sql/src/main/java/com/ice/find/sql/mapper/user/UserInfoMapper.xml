@@ -15,7 +15,7 @@
     </sql>
 
     <insert id="insertByRecord" parameterType="com.ice.find.sql.entity.user.UserInfo">
-        insert into user.user_info
+        insert into user_info
         (<include refid="Base_Column_List"/>)
         values (#{id,jdbcType=INTEGER},#{name,jdbcType=INTEGER},#{gender,jdbcType=VARCHAR},
         #{phone,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{birth,jdbcType=DATE})

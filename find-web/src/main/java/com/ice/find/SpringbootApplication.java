@@ -15,7 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Created by 012466770 ON 2018/11/15.
  */
 @SpringBootApplication
-@MapperScan(basePackages = {"com.ice.find.sql.mapper.user.*"})
+//@MapperScan(basePackages = {"com.ice.find.sql.mapper.user"})
 public class SpringbootApplication {
     public static void main(String[] args) {
 /*        Class<?>[] objects = new Class[6];

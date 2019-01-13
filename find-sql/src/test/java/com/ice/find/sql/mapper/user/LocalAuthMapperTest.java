@@ -17,5 +17,6 @@ public class LocalAuthMapperTest {
     @Test
     public void selectByEmail() {
         authMapper.selectByEmail("male_2@163.com");
+        System.out.println("dd");
     }
 }

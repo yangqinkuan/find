@@ -14,16 +14,16 @@
     </sql>
 
     <insert id="insertByRecord" parameterType="com.ice.find.sql.entity.user.LocalAuth">
-      insert into user.local_auth
+      insert into local_auth
         (<include refid="Base_Column_List"/>)
         values (#{uuid,jdbcType=VARCHAR},#{user_id,jdbcType=INTEGER},#{phone,jdbcType=VARCHAR},
         #{email,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR})
     </insert>
 
     <select id="selectByEmail" resultType="com.ice.find.sql.entity.user.LocalAuth">
-        select * from user.local_auth
+        select * from local_auth
         where email=#{email,jdbcType=VARCHAR}
-        and 1=1;
+        and 1=1
     </select>
 
 </mapper>
