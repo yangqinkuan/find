@@ -13,6 +13,18 @@
 
     <dependencies>
 
+        <!-- 本地工具类模块 -->
+        <dependency>
+            <groupId>com.ice</groupId>
+            <artifactId>find-util</artifactId>
+        </dependency>
+
+        <!--注册模块-->
+        <dependency>
+            <groupId>com.ice</groupId>
+            <artifactId>find-registry</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -32,6 +44,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ice</groupId>
+            <artifactId>find-registry</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ice</groupId>
+            <artifactId>find-registry</artifactId>
         </dependency>
 
     </dependencies>

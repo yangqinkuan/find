@@ -15,6 +15,7 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -23,6 +24,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.util.Map;
 
+@Component
 public class EmailServiceImpl implements EmailService {
 
 

@@ -7,6 +7,8 @@
  */
 package com.ice.find.util.exception;
 
+import com.ice.find.util.enums.ErrorEnum;
+
 public class CommonException extends BaseException{
     private static final long serialVersionUID = 204634425753340290L;
     public CommonException(String code) {
@@ -28,5 +30,9 @@ public class CommonException extends BaseException{
 
     public CommonException(String code, String message, Object[] values, Throwable cause) {
         super(code, message, values, cause);
+    }
+
+    public CommonException(ErrorEnum errorEnum) {
+        this(errorEnum.getCode(), errorEnum.getDescription());
     }
 }

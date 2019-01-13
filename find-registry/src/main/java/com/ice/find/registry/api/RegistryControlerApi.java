@@ -7,13 +7,13 @@
 
 package com.ice.find.registry.api;
 
-import com.alibaba.fastjson.JSON;
+
 import com.alibaba.fastjson.JSONObject;
 import com.ice.find.registry.dto.email.ByEmailReqDto;
 import com.ice.find.registry.dto.email.IsExistedEmailReqDto;
 import com.ice.find.registry.dto.email.IsExistedEmailRespDto;
 import com.ice.find.registry.service.RegistryImpl;
-import com.ice.find.util.codegenerate.ValidCode;
+import com.ice.find.util.enums.ErrorEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,19 +31,30 @@ public class RegistryControlerApi {
     private RegistryImpl registryImpl;
 
 
+
     @RequestMapping(value = "/bymail")
     public HttpRespVO registryByMail(ByEmailReqDto byEmailVO){
         return null;
     }
 
     @RequestMapping(value = "/getvalidcodebyemail")
-    public HttpRespVO getVerifyCodeByEmail(String email){
-        //生成验证码
-        String validCode = ValidCode.get6Code();
-        //保存到redis
-
-        //发送给用户邮箱
-        return null;
+    public @ResponseBody HttpRespVO getVerifyCodeByEmail(@RequestBody IsExistedEmailReqDto isExistedEmailReqDto){
+        logger.info("根据邮箱获取验证码:{}",JSONObject.toJSON(isExistedEmailReqDto));
+        HttpRespVO httpRespVO = new HttpRespVO();
+        if(null == isExistedEmailReqDto || null== isExistedEmailReqDto.getEmail()
+                || "".equals(isExistedEmailReqDto.getEmail())){
+            httpRespVO.setCode("00001");
+            return httpRespVO;
+        }
+        try {
+            registryImpl.getVerifyCodeByEmail(isExistedEmailReqDto.getEmail());
+            return httpRespVO;
+        } catch (Exception e) {
+            logger.info("根据邮箱获取验证码错误:{}",JSONObject.toJSON(isExistedEmailReqDto));
+            httpRespVO.setCode(ErrorEnum.REGISTRY_MAIL_ERROE.getCode());
+            httpRespVO.setMessage(ErrorEnum.REGISTRY_MAIL_ERROE.getDescription());
+        }
+        return httpRespVO;
     }
 
     @RequestMapping(value = "/isexistedemail")

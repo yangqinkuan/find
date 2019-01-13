@@ -21,7 +21,6 @@ public class KafkaSenderImpl {
 
     public void send(){
         String msg = "hello";
-
         kafkaTemplate.send("test",msg);
     }
 
