@@ -67,7 +67,7 @@ public class RegistryImpl implements Registry{
         kafkaMessage.setMessageID(UUID.randomUUID().toString());
         kafkaMessage.setPayload(JSONObject.toJSONString(emailRegistryDto));
         //发送到kafka
-        kafkaTemplate.send(KafkaTopicEnum.REGISTRY_MAIL_SEND.getTopic(),kafkaMessage);
+        kafkaTemplate.send(KafkaTopicEnum.REGISTRY_MAIL_SEND.getTopic(),JSONObject.toJSONString(kafkaMessage));
         return true;
     }
 }

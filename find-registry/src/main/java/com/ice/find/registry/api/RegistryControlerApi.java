@@ -50,7 +50,7 @@ public class RegistryControlerApi {
             registryImpl.getVerifyCodeByEmail(isExistedEmailReqDto.getEmail());
             return httpRespVO;
         } catch (Exception e) {
-            logger.info("根据邮箱获取验证码错误:{}",JSONObject.toJSON(isExistedEmailReqDto));
+            logger.info("根据邮箱获取验证码错误:{}",e);
             httpRespVO.setCode(ErrorEnum.REGISTRY_MAIL_ERROE.getCode());
             httpRespVO.setMessage(ErrorEnum.REGISTRY_MAIL_ERROE.getDescription());
         }

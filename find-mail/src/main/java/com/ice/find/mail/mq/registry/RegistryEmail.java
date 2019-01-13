@@ -29,7 +29,8 @@ public class RegistryEmail {
     public void listen(ConsumerRecord<?,?> record){
         Optional<?> message = Optional.ofNullable(record.value());
         if(message.isPresent()){
-            KafkaMessage kafkaMessage = (KafkaMessage)message.get();
+            String msg = message.get().toString();
+            KafkaMessage kafkaMessage = JSON.parseObject(msg,KafkaMessage.class);
             System.out.println("===============收到一条消息"+ JSONObject.toJSON(kafkaMessage));
             switch (kafkaMessage.getEventTypeID()){
                 case "20001":
