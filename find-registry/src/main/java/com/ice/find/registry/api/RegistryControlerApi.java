@@ -7,6 +7,7 @@
 
 package com.ice.find.registry.api;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.ice.find.registry.dto.email.ByEmailReqDto;
 import com.ice.find.registry.dto.email.IsExistedEmailReqDto;
@@ -47,7 +48,7 @@ public class RegistryControlerApi {
 
     @RequestMapping(value = "/isexistedemail")
     public @ResponseBody HttpRespVO isExistedEmail(@RequestBody IsExistedEmailReqDto isExistedEmailReqDto){
-        logger.info("验证注册邮箱是否存在:{}",isExistedEmailReqDto);
+        logger.info("验证注册邮箱是否存在:{}", JSONObject.toJSON(isExistedEmailReqDto));
         HttpRespVO httpRespVO = new HttpRespVO();
         if(null == isExistedEmailReqDto || null== isExistedEmailReqDto.getEmail()
         || "".equals(isExistedEmailReqDto.getEmail())){

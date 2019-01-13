@@ -9,7 +9,7 @@ package com.ice.find.sql.mapper.user;
 
 import com.ice.find.sql.entity.user.LocalAuth;
 import org.apache.ibatis.annotations.Param;
-import org.mybatis.spring.annotation.MapperScan;
+
 
 public interface LocalAuthMapper {
     /**
