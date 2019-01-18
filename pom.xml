@@ -9,12 +9,12 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>find-login</module>
+
         <module>find-mail</module>
-        <module>find-registry</module>
+        <module>find-user</module>
         <module>find-web</module>
         <module>find-util</module>
-        <module>find-kafka</module>
+
         <module>find-sql</module>
     </modules>
 
@@ -57,7 +57,7 @@
         <dependencies>
             <dependency>
                 <groupId>com.ice</groupId>
-                <artifactId>find-login</artifactId>
+                <artifactId>find-user</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -67,17 +67,7 @@
             </dependency>
             <dependency>
                 <groupId>com.ice</groupId>
-                <artifactId>find-registry</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.ice</groupId>
                 <artifactId>find-web</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.ice</groupId>
-                <artifactId>find-kafka</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

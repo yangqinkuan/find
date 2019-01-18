@@ -2,6 +2,7 @@ package com.ice.find.mail;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * Created by 012466770 ON 2018/11/15.

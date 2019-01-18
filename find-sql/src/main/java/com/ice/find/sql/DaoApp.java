@@ -15,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan(basePackages = "com.ice.find.sql.mapper.*")
+
 public class DaoApp {
     private static Logger logger = LoggerFactory.getLogger(DaoApp.class);
 

@@ -9,20 +9,26 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>find-web</artifactId>
-
+    <artifactId>find-user</artifactId>
     <dependencies>
 
-        <!--注册模块-->
+
+        <!--配置redis-->
         <dependency>
-            <groupId>com.ice</groupId>
-            <artifactId>find-user</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.ice</groupId>
-            <artifactId>find-mail</artifactId>
+            <artifactId>find-util</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.ice</groupId>
+            <artifactId>find-sql</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -35,51 +41,18 @@
             </exclusions>
         </dependency>
 
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-
-
+        <dependency>
+            <groupId>com.ice</groupId>
+            <artifactId>find-sql</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
-    <build>
-
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-
-        <resources>
-
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                    <include>templates/*</include>
-                    <include>static/*</include>
-                </includes>
-                <filtering>false</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/resources/${profiles.active}</directory>
-            </resource>
-        </resources>
-    </build>
-
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <profiles.active>dev</profiles.active>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-    </profiles>
 </project>

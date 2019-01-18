@@ -7,7 +7,7 @@
 
 package com.ice.find.util.redis;
 
-import com.ice.find.util.enums.ErrorEnum;
+import com.ice.find.util.common.enums.ErrorEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class RedisUtil {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String,Object> redisTemplate;
 
 
     //=============================common============================
