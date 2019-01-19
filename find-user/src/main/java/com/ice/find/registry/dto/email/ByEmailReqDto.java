@@ -7,6 +7,9 @@
  */
 package com.ice.find.registry.dto.email;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 public class ByEmailReqDto {
 
     private String email;

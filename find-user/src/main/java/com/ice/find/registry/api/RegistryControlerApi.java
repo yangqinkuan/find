@@ -15,6 +15,7 @@ import com.ice.find.registry.dto.email.IsExistedEmailReqDto;
 import com.ice.find.registry.dto.email.IsExistedEmailRespDto;
 import com.ice.find.registry.service.RegistryImpl;
 import com.ice.find.util.common.enums.ErrorEnum;
+import com.ice.find.util.exception.CommonException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,15 @@ public class RegistryControlerApi {
     public @ResponseBody HttpRespVO registryByMail(@RequestBody ByEmailReqDto byEmailVO){
         logger.info("根据邮箱注册账号:{}", JSON.toJSONString(byEmailVO));
         HttpRespVO httpRespVO = new HttpRespVO();
-        return null;
+        try {
+            registryImpl.registryByMail(byEmailVO);
+            return httpRespVO;
+        } catch (CommonException e) {
+            logger.info("根据邮箱注册错误:{}",e);
+            httpRespVO.setCode(e.getCode());
+            httpRespVO.setMessage(e.getMessage());
+        }
+        return httpRespVO;
     }
 
     @RequestMapping(value = "/getvalidcodebyemail")
@@ -52,10 +61,10 @@ public class RegistryControlerApi {
         try {
             registryImpl.getVerifyCodeByEmail(isExistedEmailReqDto.getEmail());
             return httpRespVO;
-        } catch (Exception e) {
+        } catch (CommonException e) {
             logger.info("根据邮箱获取验证码错误:{}",e);
-            httpRespVO.setCode(ErrorEnum.REGISTRY_MAIL_ERROE.getCode());
-            httpRespVO.setMessage(ErrorEnum.REGISTRY_MAIL_ERROE.getDescription());
+            httpRespVO.setCode(e.getCode());
+            httpRespVO.setMessage(e.getMessage());
         }
         return httpRespVO;
     }

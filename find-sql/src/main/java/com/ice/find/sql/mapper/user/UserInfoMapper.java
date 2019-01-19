@@ -8,6 +8,7 @@
 package com.ice.find.sql.mapper.user;
 
 import com.ice.find.sql.entity.user.UserInfo;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserInfoMapper {
     /**
@@ -16,4 +17,11 @@ public interface UserInfoMapper {
      * @return
      */
     int insertByRecord(UserInfo userInfo);
+
+    /**
+     * 根据邮箱获取用户信息
+     * @param email
+     * @return
+     */
+    UserInfo selectByEmail(@Param("email")String email);
 }

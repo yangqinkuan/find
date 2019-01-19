@@ -13,9 +13,9 @@ public interface Registry {
 
     Boolean isExistedEmail(String email);
 
-    Boolean registryByMail(ByEmailReqDto byEmailDto);
+    void registryByMail(ByEmailReqDto byEmailDto);
 
-    Boolean getVerifyCodeByEmail(String email);
+    void getVerifyCodeByEmail(String email);
 
 
 }

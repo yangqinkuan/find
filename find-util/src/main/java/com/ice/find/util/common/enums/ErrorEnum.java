@@ -23,8 +23,8 @@ public enum ErrorEnum {
 
     /* 2xxxx*/
     REGISTRY_MAIL_ERROE("20001","注册邮箱发送错误"),
-
-
+    VALID_CODE_ERROR("20002","验证码错误"),
+    REGISTRY_SQL_ERROR("20003","注册失败");
     ;
 
 

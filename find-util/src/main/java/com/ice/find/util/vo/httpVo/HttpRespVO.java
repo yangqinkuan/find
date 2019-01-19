@@ -14,7 +14,10 @@ public class HttpRespVO {
     private Object data;
 
     public HttpRespVO(){
+
         this.code = "00000";
+
+
     }
 
     public HttpRespVO(String code, String message, Object data) {
