@@ -18,11 +18,13 @@
             <groupId>com.ice</groupId>
             <artifactId>find-user</artifactId>
         </dependency>
-
+        <!--邮箱模块-->
         <dependency>
             <groupId>com.ice</groupId>
             <artifactId>find-mail</artifactId>
         </dependency>
+
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

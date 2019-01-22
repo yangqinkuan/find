@@ -12,7 +12,7 @@
 
         <module>find-mail</module>
         <module>find-user</module>
-        <module>find-web</module>
+        <module>find-server</module>
         <module>find-util</module>
 
         <module>find-sql</module>
@@ -49,7 +49,28 @@
             <artifactId>commons-pool2</artifactId>
             <version>2.5.0</version>
         </dependency>
+        <!--谷歌编解码软件-->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.6.1</version>
+        </dependency>
 
+
+        <dependency>
+            <groupId>org.jboss.marshalling</groupId>
+            <artifactId>jboss-marshalling</artifactId>
+            <version>2.0.6.Final</version>
+        </dependency>
+
+
+        <!--Bean简化插件-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.20</version>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 
