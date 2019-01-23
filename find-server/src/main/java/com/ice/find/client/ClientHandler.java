@@ -36,13 +36,9 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         logger.info("通道激活");
-        NettyMessage nettyMessage = new NettyMessage();
-        Header header = new Header();
-        header.setLength(1234);
-        nettyMessage.setHeader(header);
-        nettyMessage.setBody("aaaaaaaaaa");
-        System.out.println(nettyMessage.toString());
-        ctx.writeAndFlush(nettyMessage);
+        //ctx.writeAndFlush(getNettyMessage());
+
+
     }
 
     @Override
@@ -63,6 +59,9 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     }
     private NettyMessage getNettyMessage(){
         NettyMessage nettyMessage = new NettyMessage();
+        Header header = new Header();
+        header.setLength(1234);
+        header.setSessionID(123125124);
         String str = "这是一条消息";
         nettyMessage.setBody(str);
         return nettyMessage;

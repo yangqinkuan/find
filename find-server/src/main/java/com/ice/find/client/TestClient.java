@@ -7,7 +7,7 @@
 
 package com.ice.find.client;
 
-import com.ice.find.Factory.MarshallingCodeCFactory;
+import com.ice.find.factory.MarshallingCodeCFactory;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -34,6 +34,7 @@ public class TestClient {
             b.handler(new ChildChannelHandler());
 
             ChannelFuture f = b.connect(host,port).sync();//发起异步连接操作
+            f.channel().writeAndFlush("Hello Netty Server ,I am a common client");
             f.channel().closeFuture().sync();//等待客户端链路关闭
         } finally {
             group.shutdownGracefully();

@@ -5,14 +5,14 @@
  * Description:
  */
 
-package com.ice.find.Factory;
+package com.ice.find.factory;
 
 import io.netty.handler.codec.marshalling.*;
 import org.jboss.marshalling.MarshallerFactory;
 import org.jboss.marshalling.Marshalling;
 import org.jboss.marshalling.MarshallingConfiguration;
 
-public class MarshallingCodeCFactory {
+public final class MarshallingCodeCFactory {
 
     public static MarshallingDecoder buildMarshallingDecoder(){
         final MarshallerFactory factory = Marshalling.getProvidedMarshallerFactory("serial");

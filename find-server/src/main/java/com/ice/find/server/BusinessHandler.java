@@ -8,21 +8,26 @@
 package com.ice.find.server;
 
 
+import io.netty.buffer.ByteBuf;
+
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+@ChannelHandler.Sharable
 public class BusinessHandler extends ChannelInboundHandlerAdapter {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     int count = 0;
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("有消息发过来了");
-        System.out.println(count++);
-/*        NettyMessage nettyMessage = (NettyMessage)msg;
+        logger.info("开始读取信息");
+        if(msg instanceof String){
+            System.out.println(msg.toString());
+        }
+        /*        NettyMessage nettyMessage = (NettyMessage)msg;
         System.out.println(nettyMessage.toString());
         String res = new String("心跳响应");
         nettyMessage.setBody(res);*/
