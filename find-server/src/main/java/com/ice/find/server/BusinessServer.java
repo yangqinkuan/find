@@ -7,8 +7,9 @@
 
 package com.ice.find.server;
 
-import com.ice.find.factory.MarshallingCodeCFactory;
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -16,8 +17,16 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.timeout.IdleStateHandler;
+
+import java.util.concurrent.TimeUnit;
 
 public class BusinessServer {
+
+    private final AcceptorIdleStateTrigger idleStateTrigger = new AcceptorIdleStateTrigger();
 
     public void bind(int port) throws Exception{
         //1、第一个线程组用于接受client端连接
@@ -30,9 +39,6 @@ public class BusinessServer {
             b.group(bossGroup,workerGroup);//绑定两个线程池
             b.channel(NioServerSocketChannel.class);//指定NIO的模式，如果是客户端就是NioSocketChannel
             b.option(ChannelOption.SO_BACKLOG, 1024);//TCP的 accept队列大小
-            //b.option(ChannelOption.SO_SNDBUF,32*1024);//设置发送缓冲区的大小
-            //b.option(ChannelOption.SO_RCVBUF,32*1024);//设置接受缓冲区的大小
-            //b.option(ChannelOption.SO_KEEPALIVE,true);//保持连续
 
             //加入Handler
             b.childHandler(new ChildChannelHandler());
@@ -54,8 +60,12 @@ public class BusinessServer {
         @Override
         protected void initChannel(SocketChannel socketChannel) throws Exception {
             //设置Marshalling的编码和解码
-            socketChannel.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingDecoder());
-            socketChannel.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingEncoder());
+            ByteBuf delimiter = Unpooled.copiedBuffer("_$".getBytes());
+            socketChannel.pipeline().addLast(new IdleStateHandler(5,0,0, TimeUnit.SECONDS));
+            socketChannel.pipeline().addLast(idleStateTrigger);
+            socketChannel.pipeline().addLast(new DelimiterBasedFrameDecoder(1024,delimiter));
+            socketChannel.pipeline().addLast("decoder",new StringDecoder());
+            socketChannel.pipeline().addLast("encoder",new StringEncoder());
             socketChannel.pipeline().addLast(new BusinessHandler());
         }
     }

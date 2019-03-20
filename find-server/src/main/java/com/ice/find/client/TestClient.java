@@ -7,48 +7,64 @@
 
 package com.ice.find.client;
 
-import com.ice.find.factory.MarshallingCodeCFactory;
+import com.ice.find.HeartTest.HeartBeatClientHandler;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import org.apache.kafka.clients.admin.AdminClient;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.HashedWheelTimer;
+
+import java.util.concurrent.TimeUnit;
 
 public class TestClient {
-    @Autowired
-    private AdminClient adminClient;
+
+    protected final HashedWheelTimer timer = new HashedWheelTimer();
+
+    private Bootstrap boot;
+
+    private final ConnectorIdleStateTrigger idleStateTrigger = new ConnectorIdleStateTrigger();
 
     public void connect(int port,String host) throws Exception{
-        //配置客户端NIO线程组
         EventLoopGroup group = new NioEventLoopGroup();
+        boot = new Bootstrap();
+        boot.group(group).channel(NioSocketChannel.class).handler(new LoggingHandler(LogLevel.INFO));
 
-        try {
-            Bootstrap b = new Bootstrap();
-            b.group(group).channel(NioSocketChannel.class);
-            b.option(ChannelOption.TCP_NODELAY,true);
-            b.handler(new ChildChannelHandler());
+        final ConnectionWatchdog watchdog = new ConnectionWatchdog(boot,timer,port,host,true){
+            public ChannelHandler[] handlers(){
+                return new ChannelHandler[]{
+                        this,
+                        new IdleStateHandler(0,4,0, TimeUnit.SECONDS),
+                        idleStateTrigger,
+                        new DelimiterBasedFrameDecoder(1024, Unpooled.copiedBuffer("_$".getBytes())),
+                        new StringDecoder(),
+                        new StringEncoder(),
+                        new ClientHandler()
+                };
+            }
+        };
+        ChannelFuture future;
+        //进行连接
+        try{
+            synchronized (boot){
+                boot.handler(new ChannelInitializer<Channel>() {
 
-            ChannelFuture f = b.connect(host,port).sync();//发起异步连接操作
-            f.channel().writeAndFlush("Hello Netty Server ,I am a common client");
-            f.channel().closeFuture().sync();//等待客户端链路关闭
-        } finally {
-            group.shutdownGracefully();
-        }
-    }
-    //子Handler
-    private class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
-
-        @Override
-        protected void initChannel(SocketChannel socketChannel) throws Exception {
-            //设置Marshalling的编码和解码
-            socketChannel.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingDecoder());
-            socketChannel.pipeline().addLast(MarshallingCodeCFactory.buildMarshallingEncoder());
-            socketChannel.pipeline().addLast(new ClientHandler());
+                    @Override
+                    protected void initChannel(Channel channel) throws Exception {
+                        channel.pipeline().addLast(watchdog.handlers());
+                    }
+                });
+                future = boot.connect(host,port);
+            }
+            future.sync();
+        }catch(Exception e){
+            throw new Exception("connects to fails",e);
         }
     }
 

@@ -12,6 +12,7 @@ import org.jboss.marshalling.MarshallerFactory;
 import org.jboss.marshalling.Marshalling;
 import org.jboss.marshalling.MarshallingConfiguration;
 
+@Deprecated
 public final class MarshallingCodeCFactory {
 
     public static MarshallingDecoder buildMarshallingDecoder(){

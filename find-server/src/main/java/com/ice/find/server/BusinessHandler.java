@@ -10,6 +10,9 @@ package com.ice.find.server;
 
 
 
+import com.alibaba.fastjson.JSONObject;
+import com.ice.find.message.BusenessMessage;
+import com.ice.find.server.childhandle.ChildFacade;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -20,18 +23,18 @@ import org.slf4j.LoggerFactory;
 public class BusinessHandler extends ChannelInboundHandlerAdapter {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    int count = 0;
+    private ChildFacade childFacade = new ChildFacade();
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        logger.info("开始读取信息");
-        if(msg instanceof String){
-            System.out.println(msg.toString());
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        try {
+            BusenessMessage busenessMessage = JSONObject.parseObject((String) msg,BusenessMessage.class);
+            logger.info("msgid{}--body{}",busenessMessage.getMessageId(), msg.toString());
+            ServerVariables.channelMap.put(busenessMessage.getInstansId(),ctx.channel());
+            childFacade.childHandle(busenessMessage);
+        } catch (Exception e) {
+            logger.info("accept msg error ctxid{},exception{}",ctx.channel().id().asShortText(),e);
+            ctx.close();
         }
-        /*        NettyMessage nettyMessage = (NettyMessage)msg;
-        System.out.println(nettyMessage.toString());
-        String res = new String("心跳响应");
-        nettyMessage.setBody(res);*/
-        //ctx.writeAndFlush("bbbbbbbbbbbbbb");
 
 
     }
