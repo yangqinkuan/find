@@ -19,6 +19,7 @@ public class ChildFacade {
                 conHandler.handleCon(busenessMessage);
                 break;
             case "10002":
+                conHandler.handleLogin(busenessMessage);
                 break;
             default:
                 break;

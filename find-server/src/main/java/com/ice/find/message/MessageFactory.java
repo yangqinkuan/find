@@ -18,17 +18,17 @@ import io.netty.util.CharsetUtil;
 
 public class MessageFactory {
     private static final String split = "_$";
-    public static String getBusenessMessage(EventType eventType, Object o,String instanseId){
+    public static String getBusenessMessage(EventType eventType, Body body,String instanseId){
         BusenessMessage busenessMessage = new BusenessMessage();
         busenessMessage.setEventType(eventType.getEventType());
         busenessMessage.setMessageId(UUid.getUUID());
-        busenessMessage.setBody(o);
+        busenessMessage.setBody(body);
         busenessMessage.setInstansId(instanseId);
         return JSONObject.toJSONString(busenessMessage)+split;
     }
 
-    public static ByteBuf getMessageByte(EventType eventType, Object o, String instanseId){
-        String msg = getBusenessMessage(eventType,o,instanseId);
+    public static ByteBuf getMessageByte(EventType eventType, Body body, String instanseId){
+        String msg = getBusenessMessage(eventType,body,instanseId);
 
         return Unpooled.copiedBuffer(msg.getBytes(CharsetUtil.UTF_8));
     }

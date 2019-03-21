@@ -17,13 +17,16 @@ public class ChildFacade {
 
     private ConHandler conHandler = new ConHandler();
 
-    public void childHandle(BusenessMessage busenessMessage){
+    public void childHandle(BusenessMessage busenessMessage,String channelId){
         String eventType = busenessMessage.getEventType();
         switch (eventType){
             case "00001":
-                conHandler.handleCon(busenessMessage);
+                conHandler.handleCon(busenessMessage,channelId);
                 break;
             case "10002":
+                break;
+            case "10001":
+                conHandler.handleLogin(busenessMessage,channelId);
                 break;
             default:
                 break;

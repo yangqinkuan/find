@@ -13,7 +13,7 @@ public class BusenessMessage implements Serializable {
     private static final long serialVersionUID = -3750017766938211408L;
     private String eventType;
     private String messageId;
-    private Object body;
+    private Body body;
     private String instansId;
 
     public String getInstansId() {
@@ -40,11 +40,11 @@ public class BusenessMessage implements Serializable {
         this.messageId = messageId;
     }
 
-    public Object getBody() {
+    public Body getBody() {
         return body;
     }
 
-    public void setBody(Object body) {
+    public void setBody(Body body) {
         this.body = body;
     }
 }

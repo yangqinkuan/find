@@ -34,7 +34,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
         try {
             BusenessMessage busenessMessage = JSONObject.parseObject((String) msg,BusenessMessage.class);
             logger.info("msgid{}--body{}",busenessMessage.getMessageId(), msg.toString());
-            ClientVariables.channel = ctx.channel();
+
             childFacade.childHandle(busenessMessage);
             //childFacade.childHandle(busenessMessage);
         } catch (Exception e) {
@@ -52,6 +52,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         logger.info("通道激活");
+        ClientVariables.channel = ctx.channel();
         ctx.writeAndFlush(MessageFactory.getMessageByte(EventType.CON_REQ,null,ClientVariables.clientId));
 
 

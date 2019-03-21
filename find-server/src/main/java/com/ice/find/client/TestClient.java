@@ -8,7 +8,12 @@
 package com.ice.find.client;
 
 import com.ice.find.HeartTest.HeartBeatClientHandler;
+import com.ice.find.message.Body;
+import com.ice.find.message.MessageFactory;
+import com.ice.find.utils.enums.EventType;
+import com.ice.find.utils.enums.dto.LoginReqDto;
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -79,5 +84,24 @@ public class TestClient {
             }
         }
         new TestClient().connect(port,"127.0.0.1");
+
+        System.out.println("已经连接，开始登陆");
+        while(ClientVariables.channel==null){
+            System.out.println("还没连接上,请检查网络");
+            Thread.sleep(20);
+        }
+        Body body = new Body();
+        LoginReqDto loginReqDto = new LoginReqDto();
+        loginReqDto.setUser_name("yqk");
+        loginReqDto.setPassword("123");
+        body.setData(loginReqDto);
+        ByteBuf msg = MessageFactory.getMessageByte(EventType.LOGIN_REQ,body,ClientVariables.clientId);
+        ClientVariables.channel.writeAndFlush(msg);
+
+
+
+
+
+
     }
 }
