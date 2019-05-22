@@ -20,5 +20,5 @@ public class ServerVariables {
 
     public static Map<String, Channel> channelMap =  new ConcurrentHashMap<>(1000);
 
-    public static Map<String, UserSession> userSessionMap = new ConcurrentHashMap<>(1000);
+    public static Map<Integer, UserSession> userSessionMap = new ConcurrentHashMap<>(1000);
 }

@@ -7,7 +7,7 @@
 
 package com.ice.find.client;
 
-import com.ice.find.HeartTest.HeartBeatClientHandler;
+
 import com.ice.find.message.Body;
 import com.ice.find.message.MessageFactory;
 import com.ice.find.utils.enums.EventType;
@@ -93,7 +93,7 @@ public class TestClient {
         Body body = new Body();
         LoginReqDto loginReqDto = new LoginReqDto();
         loginReqDto.setUser_name("yqk");
-        loginReqDto.setPassword("123");
+        loginReqDto.setPassword("123456");
         body.setData(loginReqDto);
         ByteBuf msg = MessageFactory.getMessageByte(EventType.LOGIN_REQ,body,ClientVariables.clientId);
         ClientVariables.channel.writeAndFlush(msg);

@@ -8,7 +8,6 @@
 package com.ice.find.server.childhandle.handlers;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.ice.find.message.Body;
 import com.ice.find.message.BusenessMessage;
 import com.ice.find.message.MessageFactory;
@@ -36,17 +35,14 @@ public class ConHandler {
     public void handleLogin(BusenessMessage busenessMessage,String channelId){
         Body bo = busenessMessage.getBody();
         Object data = bo.getData();
-        System.out.println(JSONObject.toJSON(data));
-        System.out.println(JSONObject.toJSONString(data));
-
-        LoginReqDto loginReqDto = JSONObject.parseObject(JSONObject.toJSONString(data),LoginReqDto.class);
+        LoginReqDto loginReqDto = JSONObject.parseObject(data.toString(),LoginReqDto.class);
         LoginRespDto loginRespDto = new LoginRespDto();
         Body body = new Body();
         if(loginReqDto.getPassword().equals("123456")){
-            loginRespDto.setToken("abc");
+            loginRespDto.setToken(busenessMessage.getInstansId()+"-token");
             loginRespDto.setChatIp("127.0.0.1");
             loginRespDto.setChatPort("9600");
-            body.setCode(busenessMessage.getInstansId()+"-token");
+            body.setCode("00000");
             body.setData(loginRespDto);
         }else {
             body.setCode("99999");

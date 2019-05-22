@@ -14,6 +14,7 @@ public class UserSession {
     private String userId;
     private String channelId;
 
+
     public String getUserId() {
         return userId;
     }
